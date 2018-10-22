@@ -1,0 +1,50 @@
+<!-- app/templates/admin/roles/roles.html -->
+
+{% extends "layout.html" %}
+{% block title %}Roles{% endblock %}
+{% block body %}
+  <h1 class="title has-text-centered">Roles</h1>
+  {% if roles %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th><abbr title="Name">Name</abbr></th>
+          <th><abbr title="Count">Student Count</abbr></th>
+          <th><abbr title="Edit">Edit</abbr></th>
+          <th><abbr title="Delete">Delete</abbr></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for role in roles %}
+        <tr>
+          <td>{{ role.name }}</td>
+          <td>
+            {% if role.students %}
+              {{ role.students.count() }}
+            {% else %}
+              0
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('admin.edit_role', id=role.id) }}">
+              <i class="fa fa-pencil"></i> Edit
+            </a>
+          </td>
+          <td>
+            <a href="{{ url_for('admin.delete_role', id=role.id) }}">
+              <i class="fa fa-trash"></i> Delete
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3 class="title has-text-centered"> No roles have been added. </h3>
+  {% endif %}
+
+  <a href="{{ url_for('admin.add_role') }}" class="button is-fullwidth">
+    <i class="fa fa-plus"></i>
+    Add Lesson
+  </a>
+{% endblock %}

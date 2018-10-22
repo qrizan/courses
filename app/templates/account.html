@@ -1,0 +1,75 @@
+<!-- app/templates/account.html -->
+
+{% extends "layout.html" %}
+{% block title %} Account {% endblock %}
+{% block body %}
+<h1 class="title has-text-centered">Account</h1>
+<form method="POST" action="" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+
+  <div class="field level">
+    {% if (image_profile) %}
+    <p class="level-item has-text-centered">
+        <img class="image is-96x96" src="{{ image_profile }}">
+    </p>
+    {% endif %}
+  </div>
+
+  <div class="field">
+    {{ form.email.label(class="label") }}
+    {% if form.email.errors %}
+      {{ form.email(class="input is-danger") }}
+        {% for error in form.email.errors %}
+          <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+    {% else %}
+      {{ form.email(class="input") }}
+    {% endif %}
+  </div>
+
+  <div class="field">
+    {{ form.username.label(class="label") }}
+    {% if form.username.errors %}
+      {{ form.username(class="input is-danger") }}
+        {% for error in form.username.errors %}
+          <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+    {% else %}
+      {{ form.username(class="input") }}
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <div class="file">
+      <label class="file-label">
+        {% if form.image_profile.errors %}
+          {{ form.image_profile(class="file-input is-danger",type="file") }}
+            {% for error in form.image_profile.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        {% else %}
+          {{ form.image_profile(class="file-input",type="file") }}
+        {% endif %}
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label">
+            Choose a file…
+          </span>
+        </span>
+      </label>
+    </div>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      {{ form.submit(class="button is-link") }}
+    </div>
+    <div class="control">
+      <button class="button is-text">Cancel</button>
+    </div>
+  </div>
+
+</form>
+{% endblock %}

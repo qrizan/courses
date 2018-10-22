@@ -1,0 +1,50 @@
+<!-- app/templates/lesson/lessons.html -->
+
+{% extends "layout.html" %}
+{% block title %}Lesson{% endblock %}
+{% block body %}
+  <h1 class="title has-text-centered">Lessons</h1>
+  {% if lessons %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th><abbr title="Name">Name</abbr></th>
+          <th><abbr title="Count">Student Count</abbr></th>
+          <th><abbr title="Edit">Edit</abbr></th>
+          <th><abbr title="Delete">Delete</abbr></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for lesson in lessons %}
+        <tr>
+          <td>{{ lesson.name }}</td>
+          <td>
+            {% if lesson.users %}
+              {{ lesson.users.count() }}
+            {% else %}
+              0
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('lesson.edit_lesson', id=lesson.id) }}">
+              <i class="fa fa-pencil"></i> Edit
+            </a>
+          </td>
+          <td>
+            <a href="{{ url_for('lesson.delete_lesson', id=lesson.id) }}">
+              <i class="fa fa-trash"></i> Delete
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3 class="title has-text-centered"> No lessons have been added. </h3>
+  {% endif %}
+
+  <a href="{{ url_for('lesson.add_lesson') }}" class="button is-fullwidth">
+    <i class="fa fa-plus"></i>
+    Add Lesson
+  </a>
+{% endblock %}
