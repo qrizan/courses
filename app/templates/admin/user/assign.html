@@ -1,0 +1,56 @@
+<!-- app/templates/user/assign.html -->
+
+{% extends "layout.html" %}
+{% block title %}
+  Assign User
+{% endblock %}
+{% block body %}
+  <h1 class="title has-text-centered">Assign User and Roles</h1>
+  <p>
+      Select a lesson and role to assign to
+      <span style="color: #aec251;">{{ user.username }}</span>
+  </p>
+
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+
+    <div class="field">
+      {{ form.lesson.label(class="label") }}
+      <div class="select">
+        {% if form.lesson.errors %}
+          {{ form.lesson(class="select is-danger") }}
+            {% for error in form.lesson.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        {% else %}
+          {{ form.lesson(class="select") }}
+        {% endif %}
+      </div>
+    </div>
+
+
+    <div class="field">
+      {{ form.role.label(class="label") }}
+      <div class="select">
+        {% if form.role.errors %}
+          {{ form.role(class="select is-danger") }}
+            {% for error in form.role.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        {% else %}
+          {{ form.role(class="select") }}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        {{ form.submit(class="button is-link") }}
+      </div>
+      <div class="control">
+        <button class="button is-text">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+{% endblock %}
